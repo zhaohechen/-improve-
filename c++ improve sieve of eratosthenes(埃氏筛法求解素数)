@@ -1,0 +1,30 @@
+#include <iostream>
+#include <bitset>//c++中专门用来处理二进制数据的库
+using namespace std;
+int main()
+{
+    const int max = 10000;//此处可变，以求10000以内的素数为例
+    bitset<max+1> a;
+    a.set();//将二进制比特串全置为1
+    a[1] = 0;//省去从第0位开始检查，1既不是素数也不是合数
+    for(int i = 1; i < max+1;i++)
+    {
+       if(a[i])
+          {
+            for(int j = i*2;j < max+1;j += i)//开始埃氏筛法
+            {
+                a[j] = 0;
+            }
+          }
+    }
+    cout << "素数的个数有(即比特串中1的个数)：" << a.count() << endl;//未被除掉的的1即为素数
+    for(int i = 1; i < max+1;i++)
+    {
+        if (a[i]){
+        cout.setf(ios::left);
+        cout << i << "  " ;
+        }
+    }
+    cout << endl;
+    return 0;
+}
